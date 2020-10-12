@@ -1,6 +1,7 @@
 import React from 'react';
-import { BrowserRouter as Router} from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
 import IssuesList from './components/IssuesList';
+import Issue from './components/Issue'
 
 
 import './App.css';
@@ -8,7 +9,18 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      <IssuesList />
+      <Router>
+      <Switch>
+          <Route path="/" exact component={IssuesList}/>
+          <Route path="/:issue_number">
+            <IssuesList />
+          </Route>
+          <Route path="*">
+            <h2>Page Not Found!</h2>
+            <Link to="/">Return to Homepage</Link>
+          </Route>
+        </Switch>
+      </Router> 
     </div>
   );
 }

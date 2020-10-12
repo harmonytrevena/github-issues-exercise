@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
 import Issue from './Issue';
 
 class IssuesList extends Component {
@@ -24,8 +25,10 @@ class IssuesList extends Component {
                 {issues.map((issue, index) =>
                     <ul key={index}>
                         <li>{issue.title}</li>
-                        <li>{issue.body}</li>
-                        <li><a href={issue.url} target="_blank" rel="noopener noreferrer">{issue.url}</a></li>
+                        <li><a href={issue.url} target="_blank" rel="noopener noreferrer">View Issue Here</a></li>
+                        <Link to={`${issue.url}/:${issue.number}`} key={index}>
+                            {issue.title}
+                        </Link>
                     </ul>
                 )}
             </>
