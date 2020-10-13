@@ -1,14 +1,18 @@
 import React from "react";
+import ReactMarkdown from "react-markdown";
+import { useParams } from 'react-router-dom';
 
 const Issue = (props) => {
-    const { issue } = props;
+    const { issues } = props;
+    const { issue_number } = useParams();
+    const issue = issues.find((issue) => {
+        return issue.number === parseInt(issue_number) ? issue : null;
+    });
+
     return (
         <>
             <h2>{issue.title}</h2>
-            <p>{issue.body}</p>
-            <p>
-                <a href={issue.url}>{issue.url}</a>
-            </p>
+            <ReactMarkdown source={issue.body} escapeHtml={false} />
         </>
     );
 }

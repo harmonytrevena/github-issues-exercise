@@ -10,15 +10,15 @@ function App() {
   return (
     <div className="App">
       <Router>
-      <Switch>
-          <Route path="/" exact component={IssuesList}/>
-          <Route path="/:issue_number">
-            <IssuesList />
-          </Route>
-          <Route path="*">
-            <h2>Page Not Found!</h2>
-            <Link to="/">Return to Homepage</Link>
-          </Route>
+        <Switch>
+            <Route path="/" exact component={IssuesList}/>
+            <Route path="/:issue_number">
+              <IssuesList />
+            </Route>
+            <Route path="*">
+              <h2>Page Not Found!</h2>
+              <Link to="/">Return to Homepage</Link>
+            </Route>
         </Switch>
       </Router> 
     </div>

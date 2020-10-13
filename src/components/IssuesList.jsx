@@ -43,7 +43,7 @@ class IssuesList extends Component {
                     </Route>
                     <Route path={`/issue/:issue_number`}>
                         <Link to="/">Return to Home</Link>
-                        <h2>This will be an issue!</h2>
+                        <Issue issues={issues} />
                     </Route>
                 </>
             ) : (
