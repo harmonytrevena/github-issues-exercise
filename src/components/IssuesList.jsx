@@ -5,7 +5,9 @@ import Issue from './Issue';
 class IssuesList extends Component {
     constructor(props) {
         super(props);
-        this.state = { issues: []}
+        this.state = { 
+            issues: []
+        }
     }
   
     async componentDidMount() {
@@ -21,17 +23,13 @@ class IssuesList extends Component {
         const { issues } = this.state;
 
         return (
-            <>
-                {issues.map((issue, index) =>
-                    <ul key={index}>
-                        <li>{issue.title}</li>
-                        <li><a href={issue.url} target="_blank" rel="noopener noreferrer">View Issue Here</a></li>
-                        <Link to={`${issue.url}/:${issue.number}`} key={index}>
-                            {issue.title}
-                        </Link>
-                    </ul>
-                )}
-            </>
+            <ul>
+            {!!issues.length ? (
+                issues.map((issue) => <Issue key={issue.id} issue={issue} />)
+            ) : (
+                <li>No Issues</li>
+            )}
+            </ul>
         );
     }
   }

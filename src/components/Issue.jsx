@@ -1,10 +1,14 @@
 import React from "react";
 
 const Issue = (props) => {
-    const { issues } = props;
+    const { issue } = props;
     return (
         <>
-            <p>{issues}</p>
+            <h2>{issue.title}</h2>
+            <p>{issue.body}</p>
+            <p>
+                <a href={issue.url}>{issue.url}</a>
+            </p>
         </>
     );
 }
