@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
+import { Route, Link } from 'react-router-dom';
 import Issue from './Issue';
+
+import 'bulma/css/bulma.css';
+// import {  } from "bloomer";
 
 class IssuesList extends Component {
     constructor(props) {
@@ -13,7 +16,7 @@ class IssuesList extends Component {
     async componentDidMount() {
         const response = await fetch("https://api.github.com/repos/facebook/create-react-app/issues");
         const issues = await response.json();
-        console.log("data is", issues);
+        // console.log("data is", issues);
         this.setState ({
             issues: issues
         })
@@ -23,13 +26,30 @@ class IssuesList extends Component {
         const { issues } = this.state;
 
         return (
-            <ul>
+            <>
             {!!issues.length ? (
-                issues.map((issue) => <Issue key={issue.id} issue={issue} />)
+                <>
+                    <h1>Github Issues List</h1>
+                    <Route exact path="/">
+                    {issues.map((issue) => {
+                        return (
+                            <p key={issue.id}>
+                                {issue.title}
+                                <br/>
+                                <Link to={`/issue/${issue.number}`}>View Details</Link>
+                            </p>
+                        )
+                    })}
+                    </Route>
+                    <Route path={`/issue/:issue_number`}>
+                        <Link to="/">Return to Home</Link>
+                        <h2>This will be an issue!</h2>
+                    </Route>
+                </>
             ) : (
-                <li>No Issues</li>
+                <p>Fetching issues....</p>
             )}
-            </ul>
+            </>
         );
     }
   }
