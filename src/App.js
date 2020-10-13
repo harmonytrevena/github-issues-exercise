@@ -3,7 +3,8 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import IssuesList from './components/IssuesList';
 import Issue from './components/Issue'
 
-
+import 'bulma/css/bulma.css';
+// import {  } from "bloomer";
 import './App.css';
 
 function App() {

@@ -1,57 +1,47 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Route, Link } from 'react-router-dom';
 import Issue from './Issue';
 
 import 'bulma/css/bulma.css';
 // import {  } from "bloomer";
 
-class IssuesList extends Component {
-    constructor(props) {
-        super(props);
-        this.state = { 
-            issues: []
-        }
-    }
-  
-    async componentDidMount() {
-        const response = await fetch("https://api.github.com/repos/facebook/create-react-app/issues");
-        const issues = await response.json();
-        // console.log("data is", issues);
-        this.setState ({
-            issues: issues
-        })
-    }
-  
-    render() {
-        const { issues } = this.state;
+const IssuesList = props => {
+    const [issues, setIssues] = useState([]);
 
-        return (
+    useEffect(() => {
+        (async function() {
+            const response = await fetch("https://api.github.com/repos/facebook/create-react-app/issues");
+            const issues = await response.json();
+            setIssues(issues);
+        })();
+    }, [setIssues]);
+
+    return (
+        <>
+        {!!issues.length ? (
             <>
-            {!!issues.length ? (
-                <>
-                    <h1>Github Issues List</h1>
-                    <Route exact path="/">
-                    {issues.map((issue) => {
-                        return (
-                            <p key={issue.id}>
-                                {issue.title}
-                                <br/>
-                                <Link to={`/issue/${issue.number}`}>View Details</Link>
-                            </p>
-                        )
-                    })}
-                    </Route>
-                    <Route path={`/issue/:issue_number`}>
-                        <Link to="/">Return to Home</Link>
-                        <Issue issues={issues} />
-                    </Route>
-                </>
-            ) : (
-                <p>Fetching issues....</p>
-            )}
+                <h1>Github Issues List</h1>
+                <Route exact path="/">
+                {issues.map((issue) => {
+                    return (
+                        <p key={issue.id}>
+                            {issue.title}
+                            <br/>
+                            <Link to={`/issue/${issue.number}`}>View Details</Link>
+                        </p>
+                    )
+                })}
+                </Route>
+                <Route path={`/issue/:issue_number`}>
+                    <Link to="/">Return to Home</Link>
+                    <Issue issues={issues} />
+                </Route>
             </>
-        );
-    }
-  }
+        ) : (
+            <p>Fetching issues....</p>
+        )}
+        </>
+    );
+}
   
-  export default IssuesList;
+export default IssuesList;
